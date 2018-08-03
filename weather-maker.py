@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Copyright (C) 2011, 2013, 2017 Ben Elliston
 #
 # This file is free software; you can redistribute it and/or modify it
@@ -271,9 +272,12 @@ def _parse(y, m, d, hh, mm):
 df = pd.read_csv(args.hm_data, sep=',', skipinitialspace=True, low_memory=False,
                  date_parser=_parse,
                  index_col='datetime',
-                 parse_dates={'datetime': ['Year Month Day Hour Minutes in YYYY.1',
-                                           'MM.1', 'DD.1', 'HH24.1',
+                 parse_dates={'datetime': ['Year Month Day Hour Minutes in YYYY',
+                                           'MM', 'DD', 'HH24',
                                            'MI format in Local standard time']})
+#                 parse_dates={'datetime': ['Year Month Day Hour Minutes in YYYY.1',
+#                                           'MM.1', 'DD.1', 'HH24.1',
+#                                           'MI format in Local standard time']})
 
 # Interpolate missing data (limit to args.i hours aka 2*args.i half-hours)
 df.interpolate(inplace=True, limit=args.i * 2)
